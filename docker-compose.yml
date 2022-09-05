@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  adonis-mysql:
+    #container_name: "${APP_NAME}-mysql"
+    container_name: adonisjs-app-mysql
+    image: mysql:8.0.30
+    working_dir: /app
+    ports:
+      - '20101:3306'
+    volumes:
+      - $PWD/data:/var/lib/mysql
+      - ../:/app
+    env_file:
+      - .env
+    environment:
+      - PWD=$PWD
+      - PORT=20100
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=adonisjs_app
+      - MYSQL_PASSWORD=123456
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=123456
+      #- MYSQL_USER=$DB_USER
+      #- MYSQL_DATABASE=$DB_DATABASE
+      #- MYSQL_PASSWORD=$DB_PASSWORD
+      #- MYSQL_ALLOW_EMPTY_PASSWORD=$DB_ALLOW_EMPTY_PASSWORD
+    #networks:
+    #  - api-network
+
+  adonis-api:
+    #container_name: "${APP_NAME}-api"
+    container_name: adonisjs-app-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "20100:3333"
+    depends_on:
+      - adonis-mysql
+    #networks:
+    #  - api-network
+
+  redis:
+    #container_name: "${APP_NAME}-redis"
+    container_name: adonisjs-app-redis
+    restart: always
+    image: "redis:alpine"
+    #networks:
+    #  - api-network
+    #ports:
+    # - '6378:6379'
+    volumes:
+      - ./docker/data/redis:/data
+    expose:
+      - 6379
+
+#networks:
+#  api-network:
