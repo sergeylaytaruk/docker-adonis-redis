@@ -4,7 +4,7 @@
 version: '3.1'
 services:
   mysql:
-    image: 'mysql:8.0'
+    image: 'mysql:8.0.30'
     container_name: adonisjs4-app-mysql
     working_dir: /application
     volumes:
@@ -41,7 +41,7 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - "20001:3333"
+      - "3333:3333"
     depends_on:
       - mysql
     links:
