@@ -59,6 +59,17 @@ module.exports = {
     },
     debug: Env.get('DB_DEBUG', false)
   },
+  mysql2: {
+    client: 'mysql2',
+    connection: {
+      host: Env.get('DB_HOST', 'localhost'),
+      port: Env.get('DB_PORT', ''),
+      user: Env.get('DB_USER', 'admin'),
+      password: Env.get('DB_PASSWORD', ''),
+      database: Env.get('DB_DATABASE', 'adonisjs_app')
+    },
+    debug: Env.get('DB_DEBUG', false)
+  },
 
   /*
   |--------------------------------------------------------------------------
