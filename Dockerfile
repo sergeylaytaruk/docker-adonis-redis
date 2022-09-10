@@ -7,6 +7,7 @@ COPY package.json $HOME
 
 WORKDIR $HOME
 RUN npm i -g @adonisjs/cli && npm install
+#RUN adonis migration:run
 EXPOSE 3333
 
 CMD ["npm", "start"]

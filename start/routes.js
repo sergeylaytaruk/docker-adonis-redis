@@ -17,7 +17,15 @@
 
 const Route = use('Route')
 
-Route.post('/login', 'UserController.login')
-Route.post('/register', 'UserController.register')
+Route.post('/login', 'UserController.login');
+Route.post('/register', 'UserController.register');
+
+Route.group(() => {
+    Route.post('/setredis', 'RedisController.setredis'); //.middleware(['auth']);
+    Route.get('/getredis', 'RedisController.getredis');
+    Route.post('/setqueue', 'RedisController.setqueue');
+    Route.get('/getqueue', 'RedisController.getqueue');
+    Route.get('/getallqueue', 'RedisController.getAllQueue');
+}).middleware(['auth']);
 
 
